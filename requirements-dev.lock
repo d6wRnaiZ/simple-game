@@ -10,5 +10,14 @@
 #   universal: false
 
 -e file:.
+colorama==0.4.6
+    # via pytest
+iniconfig==2.1.0
+    # via pytest
+packaging==25.0
+    # via pytest
+pluggy==1.6.0
+    # via pytest
 pygame==2.6.1
     # via simple-game
+pytest==8.3.5
