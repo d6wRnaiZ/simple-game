@@ -1,6 +1,7 @@
 import pygame
-from game.player import Player
-from game.settings import HEIGHT, WIDTH
+
+from simple_game.game.player import Player
+from simple_game.game.settings import HEIGHT, WIDTH
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -23,5 +24,6 @@ while running:
     pygame.display.flip()
     clock.tick(60)
 
+pygame.quit()
 pygame.quit()
 pygame.quit()
