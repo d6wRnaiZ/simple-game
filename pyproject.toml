@@ -19,6 +19,10 @@ build-backend = "hatchling.build"
 managed = true
 dev-dependencies = []
 
+[tool.rye.scripts]
+main = "python src/simple_game/main.py"
+
+
 [tool.hatch.metadata]
 allow-direct-references = true
 
