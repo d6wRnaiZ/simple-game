@@ -20,7 +20,7 @@ managed = true
 dev-dependencies = []
 
 [tool.rye.scripts]
-main = "python src/simple_game/main.py"
+main = "python -m simple_game.main"
 
 
 [tool.hatch.metadata]

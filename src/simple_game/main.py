@@ -27,3 +27,4 @@ while running:
 pygame.quit()
 pygame.quit()
 pygame.quit()
+pygame.quit()
