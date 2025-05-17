@@ -1,6 +1,22 @@
+# .github/workflows/ci.yml
+
+name: CI
+
+# ─── 必ず on: をここに書く ─────────────────────────────
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
