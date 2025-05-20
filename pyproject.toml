@@ -19,12 +19,12 @@ build-backend = "hatchling.build"
 managed = true
 dev-dependencies = [
     "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
 ]
 
 [tool.rye.scripts]
 main = "python -m simple_game.main"
-test = "pytest --maxfail=1 --disable-warnings -q"
-
+test = "pytest --maxfail=1 --disable-warnings -q --cov=simple_game"
 
 [tool.hatch.metadata]
 allow-direct-references = true

@@ -1,42 +1,29 @@
+# .github/workflows/ci.yml
 name: CI
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [ main, master ]
   pull_request:
-    branches:
-      - main
-      - master
+    branches: [ main, master ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11"
-
-      - name: Install build dependencies for PyYAML
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential libyaml-dev
+          python-version: '3.12'
 
       - name: Install rye
-        run: |
-          python -m pip install --upgrade pip
-          pip install rye
+        run: pip install rye
 
       - name: Install dependencies
-        run: |
-          rye sync
+        run: rye install
 
       - name: Run tests
-        run: |
-          rye run test
+        run: rye run test

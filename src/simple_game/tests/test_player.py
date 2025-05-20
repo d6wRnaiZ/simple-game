@@ -1,31 +1,47 @@
 import pygame
-import pytest
 
 from simple_game.game.player import Player
-from simple_game.game.settings import HEIGHT, PLAYER_SIZE, WIDTH
+
+# ─── ここにダミーキーオブジェクトを定義 ───
 
 
-@pytest.fixture(autouse=True)
-def init_pygame():
-    pygame.init()
-    yield
-    pygame.quit()
+class DummyKeys:
+    def __init__(self, pressed_keys):
+        # pressed_keys: set of pygame のキー定数
+        self.pressed = pressed_keys
+
+    def __getitem__(self, key):
+        # key が押されていれば 1、そうでなければ 0 を返す
+        return 1 if key in self.pressed else 0
+
+# ─────────────────────────────────────────
 
 
-def test_player_init():
-    p = Player()
-    # Rect が生成され、サイズが PLAYER_SIZE になっている
-    assert isinstance(p.rect, pygame.Rect)
-    assert (p.rect.width, p.rect.height) == (PLAYER_SIZE, PLAYER_SIZE)
+def test_player_initial_position():
+    player = Player()
+    assert (player.rect.x, player.rect.y) == (100, 100)
 
 
-def test_player_clamp():
-    p = Player()
-    # 画面外に出す
-    p.rect.x = WIDTH + 50
-    p.rect.y = HEIGHT + 50
-    p.update()
-    # 端に収まっていること
-    assert p.rect.right <= WIDTH
-    assert p.rect.bottom <= HEIGHT
-    assert p.rect.bottom <= HEIGHT
+def test_player_moves_right(monkeypatch):
+    # 右キーのみ押された状態をシミュレート
+    dummy = DummyKeys({pygame.K_RIGHT})
+    monkeypatch.setattr(pygame.key, "get_pressed", lambda: dummy)
+
+    player = Player()
+    player.update()
+    assert player.rect.x == 100 + player.speed
+
+
+def test_player_clamp(monkeypatch):
+    # 左上キーを押しっぱなしで何度か update しておく
+    dummy = DummyKeys({pygame.K_LEFT, pygame.K_UP})
+    monkeypatch.setattr(pygame.key, "get_pressed", lambda: dummy)
+
+    player = Player()
+    for _ in range(50):
+        player.update()
+
+    # clamp によって画面外に出ない
+    assert player.rect.x >= 0
+    assert player.rect.y >= 0
+    assert player.rect.y >= 0

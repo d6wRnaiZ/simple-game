@@ -5,4 +5,4 @@ Python + Pygame によるシンプルな2Dゲームのベースプロジェク�
 ## 実行方法
 
 ```bash
-rye run python main.py
+rye run main
