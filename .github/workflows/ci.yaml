@@ -19,12 +19,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Upgrade build tools
+      - name: Install Rye via official installer
         run: |
-          python -m pip install --upgrade pip setuptools wheel cython
-
-      - name: Install rye
-        run: pip install rye
+          curl -sSL https://install.rye.com | python3 -
+          # 必要なら ~/.local/bin を PATH に追加
+          echo "${HOME}/.local/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
         run: rye install
