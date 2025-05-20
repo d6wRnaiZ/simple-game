@@ -19,14 +19,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Rye via official installer
-        run: |
-          curl -sSL https://install.rye.com | python3 -
-          # 必要なら ~/.local/bin を PATH に追加
-          echo "${HOME}/.local/bin" >> $GITHUB_PATH
+      - name: Install Rye
+        uses: eifinger/setup-rye@v4          # Ryeをインストール＆PATH登録まで自動化 :contentReference[oaicite:0]{index=0}
 
-      - name: Install dependencies
-        run: rye install
+      - name: Sync dependencies
+        run: rye sync                        # 依存を同期（rye install でも可）
 
       - name: Run tests
         run: rye run test
